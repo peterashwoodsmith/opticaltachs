@@ -6,6 +6,20 @@
 // the optical sensor.  We use an IR diode and an IR transistor of the same wavelength. A TM1637 4 digit
 // Display is used to display the results.
 //
+// Wiring is simple. The Display is powered normal +5v/GND and has two signal lines on digital pins 3 and 4.
+// Then we use pin 2 as an interrupt pin and A0 as an analog input pin. Both are connected to the emitter of
+// an IR transistor which drains through a resistor to ground and of course its collector is to 5V. As a 
+// result when the transistor sees IR at the proper frequency it conducts from +5V through the resistor to
+// ground. The voltage between the resistor and ground is used to drive the interrupt pin 2 and also the
+// Analog A0. This allows us to experiment with both interrupt and polling approaches. The IR LED is just driven
+// normally through +5 and through a resistor to ground. The LED emits at the proper IR frequency for the 
+// transistor and so when its interrupted the voltage at the interrupt pin and A0 is low and when it sees 
+// light the voltage goes high. Now the trick is the voltage is not always correct to trigger the interrupts
+// so we can run this little bit of code with both interrupts and polling to compare the results. 
+//
+// We'll see how this works and then add more hardware as necessary to get the sensitivity up. Also will
+// Experiment with an OPAMP and visible light only which is how most of the commercial ones work.
+//
 
 //
 // This is the constructor for the display object 'display' we use NANO pins 3 and 4 to drive it in addition
